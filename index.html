@@ -1,121 +1,950 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PHK PartsBank</title>
-  <meta name="description" content="PHK PartsBank — 로보틱스·산업 핵심부품의 표준화, 재고/유통/정산을 통합하는 글로벌 부품은행 플랫폼" />
+  <meta name="description" content="PHK PartsBank — Global Robotics & Industrial Parts Exchange. Brokerage, sourcing, logistics, and standards data hub." />
+  <meta name="theme-color" content="#0b1220" />
+
   <style>
-    :root { --bg:#0b0f18; --card:#121a2a; --line:#24304a; --txt:#eaf1ff; --muted:#9fb0d0; }
-    body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,sans-serif; background:var(--bg); color:var(--txt); }
-    .wrap{ max-width:980px; margin:0 auto; padding:24px; }
-    .hero{ border:1px solid var(--line); background:linear-gradient(180deg,#101a2e,#0b0f18); border-radius:18px; padding:22px; }
-    .brand{ display:flex; gap:12px; align-items:center; }
-    .logo{ width:44px; height:44px; border-radius:14px; background:#57d3ff; color:#0b0f18; display:flex; align-items:center; justify-content:center; font-weight:900; }
-    h1{ margin:6px 0 0; font-size:26px; letter-spacing:0.2px; }
-    .sub{ margin:10px 0 0; color:var(--muted); line-height:1.55; }
-    .grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:12px; margin-top:14px; }
-    .card{ grid-column:span 12; border:1px solid var(--line); background:var(--card); border-radius:16px; padding:16px; }
-    @media(min-width:860px){ .c6{ grid-column:span 6; } .c4{ grid-column:span 4; } }
-    .title{ font-weight:800; margin:0 0 8px; }
-    .list{ margin:0; padding-left:18px; color:var(--muted); line-height:1.7; }
-    .btns{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
-    .btn{ border:1px solid var(--line); background:#0f1626; color:var(--txt); padding:10px 12px; border-radius:12px; text-decoration:none; font-weight:700; }
-    .btn:hover{ background:#16223a; }
-    .foot{ margin-top:18px; color:var(--muted); font-size:13px; }
-    .badge{ display:inline-block; margin-left:8px; padding:3px 8px; border-radius:999px; border:1px solid var(--line); color:var(--muted); font-size:12px; }
-    .mono{ font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
-    .pill{ display:inline-block; margin:4px 6px 0 0; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:#0f1626; color:var(--muted); font-size:12px; }
+    :root{
+      --bg:#0b1220;
+      --card:#101a32;
+      --card2:#0f1930;
+      --text:#eaf0ff;
+      --muted:#b8c3e6;
+      --line:rgba(255,255,255,.12);
+      --accent:#7cf7c2;
+      --accent2:#76a8ff;
+      --warn:#ffd36a;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --radius:18px;
+      --max:1080px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple SD Gothic Neo", "Noto Sans KR", "Noto Sans", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 0%, rgba(118,168,255,.18), transparent 60%),
+        radial-gradient(1000px 500px at 85% 10%, rgba(124,247,194,.16), transparent 55%),
+        radial-gradient(900px 700px at 50% 110%, rgba(255,211,106,.10), transparent 55%),
+        var(--bg);
+      line-height:1.55;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 56px}
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:14px 14px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(16,26,50,.82), rgba(16,26,50,.55));
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{
+      width:42px; height:42px; border-radius:14px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(124,247,194,.9), rgba(124,247,194,.05) 55%),
+        radial-gradient(circle at 70% 70%, rgba(118,168,255,.85), rgba(118,168,255,.05) 60%),
+        rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+      display:grid; place-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute; inset:-60%;
+      background: conic-gradient(from 180deg, rgba(124,247,194,.0), rgba(124,247,194,.35), rgba(118,168,255,.35), rgba(255,211,106,.25), rgba(124,247,194,.0));
+      animation: spin 10s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .logo span{
+      position:relative;
+      z-index:1;
+      font-weight:800;
+      letter-spacing:.5px;
+      font-size:14px;
+      color: rgba(10,18,32,.95);
+      background: rgba(234,240,255,.92);
+      padding:2px 8px;
+      border-radius:10px;
+    }
+    .brand h1{margin:0; font-size:16px; letter-spacing:.2px}
+    .brand p{margin:0; font-size:12px; color:var(--muted)}
+    .top-actions{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-size:12px;
+      cursor:pointer;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .pill:hover{transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2)}
+    select.pill{appearance:none; padding-right:34px}
+    .selectWrap{position:relative; display:inline-flex}
+    .selectWrap:after{
+      content:"▾";
+      position:absolute; right:12px; top:50%; transform:translateY(-50%);
+      color: var(--muted);
+      pointer-events:none;
+      font-size:12px;
+    }
+
+    .hero{
+      margin-top:18px;
+      padding:26px 18px 18px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(16,26,50,.78), rgba(16,26,50,.40));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(900px 220px at 20% 0%, rgba(124,247,194,.18), transparent 60%),
+        radial-gradient(780px 220px at 80% 0%, rgba(118,168,255,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .heroGrid{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 880px){
+      .heroGrid{grid-template-columns:1fr}
+    }
+    .kicker{
+      display:inline-flex; gap:8px; align-items:center;
+      color: var(--muted); font-size:12px; letter-spacing:.25px;
+      background: rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      padding:8px 12px;
+      border-radius:999px;
+      width:fit-content;
+    }
+    .dot{width:8px;height:8px;border-radius:50%; background: var(--accent); box-shadow: 0 0 18px rgba(124,247,194,.55)}
+    .hero h2{
+      margin:14px 0 10px;
+      font-size:34px;
+      line-height:1.1;
+      letter-spacing:-.4px;
+    }
+    .hero h2 .grad{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .hero p{margin:0 0 16px; color: var(--muted); font-size:14px; max-width: 62ch}
+    .ctaRow{display:flex; gap:10px; flex-wrap:wrap; margin-top: 6px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:11px 14px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      font-weight:700;
+      font-size:13px;
+      cursor:pointer;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      min-width: 160px;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.22)}
+    .btn.primary{
+      background: linear-gradient(90deg, rgba(124,247,194,.18), rgba(118,168,255,.18));
+      border-color: rgba(124,247,194,.22);
+    }
+    .btn.primary:hover{border-color: rgba(124,247,194,.35)}
+    .mini{
+      color: var(--muted);
+      font-size:12px;
+      margin-top:10px;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .mini span{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:7px 10px; border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .cardRight{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(11,18,32,.35), rgba(11,18,32,.15));
+      padding:16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .cardRight:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background:
+        radial-gradient(500px 250px at 30% 20%, rgba(255,211,106,.10), transparent 65%),
+        radial-gradient(520px 260px at 80% 80%, rgba(118,168,255,.10), transparent 70%);
+      pointer-events:none;
+    }
+    .cardRight h3{position:relative; margin:0 0 8px; font-size:14px}
+    .cardRight ul{position:relative; margin:0; padding:0 0 0 16px; color: var(--muted); font-size:13px}
+    .cardRight li{margin:6px 0}
+    .grid{
+      margin-top:16px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 880px){ .grid{grid-template-columns:1fr} }
+    .box{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      padding:16px;
+      box-shadow: 0 14px 38px rgba(0,0,0,.22);
+    }
+    .box h4{margin:0 0 8px; font-size:14px}
+    .box p{margin:0; color: var(--muted); font-size:13px}
+    .tag{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(124,247,194,.10);
+      border:1px solid rgba(124,247,194,.18);
+      color: var(--text);
+      font-size:12px;
+      margin-bottom:10px;
+      width:fit-content;
+    }
+
+    section{margin-top:18px}
+    .sectionHead{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      margin:0 0 10px;
+      padding:0 6px;
+    }
+    .sectionHead h3{margin:0; font-size:16px}
+    .sectionHead p{margin:0; color: var(--muted); font-size:12px}
+
+    .cols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    @media (max-width: 880px){ .cols{grid-template-columns:1fr} }
+
+    .list{
+      margin:0; padding:0; list-style:none;
+      display:grid; gap:10px;
+    }
+    .item{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.035);
+      padding:14px;
+    }
+    .item b{display:block; margin-bottom:6px; font-size:13px}
+    .item small{color: var(--muted); font-size:12px}
+
+    .footer{
+      margin-top:22px;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      padding:16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .muted{color:var(--muted)}
+    .kpiRow{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;
+    }
+    .kpi{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      border-radius: 14px;
+      padding:10px 12px;
+      min-width: 160px;
+    }
+    .kpi b{display:block; font-size:12px}
+    .kpi span{color:var(--muted); font-size:12px}
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(16,26,50,.92);
+      border:1px solid rgba(255,255,255,.18);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      display:none;
+      gap:10px;
+      align-items:center;
+      z-index: 50;
+      max-width: calc(100% - 24px);
+    }
+    .toast.show{display:flex}
+    .toast .bar{
+      width:8px;height:8px;border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(124,247,194,.55);
+    }
+    .hr{
+      height:1px;
+      background: var(--line);
+      margin: 10px 0;
+      border:0;
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="hero">
-      <div class="brand">
-        <div class="logo">PB</div>
+    <header>
+      <div class="brand" aria-label="PHK PartsBank">
+        <div class="logo" aria-hidden="true"><span>PHK</span></div>
         <div>
-          <h1>PHK PartsBank <span class="badge">Global Parts Infrastructure</span></h1>
-          <div class="sub">
-            PHK PartsBank는 <b>로보틱스·산업 핵심부품</b>을 “표준화 → 재고화 → 유통화 → 정산화”하여
-            <b>전 세계 공급망을 연결하는 부품은행(Parts Bank)</b> 플랫폼입니다.
+          <h1 id="t_brand">PHK PartsBank</h1>
+          <p id="t_tagline">Global Robotics & Industrial Parts Exchange</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <div class="selectWrap" title="Language">
+          <select class="pill" id="langSelect" aria-label="Language selector"></select>
+        </div>
+        <button class="pill" id="copyEmailBtn" type="button" title="Copy email">
+          <span>📩</span><span id="t_copyEmail">Copy Email</span>
+        </button>
+        <a class="pill" href="#contact" title="Contact">
+          <span>📞</span><span id="t_contactTop">Contact</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="hero" id="top">
+      <div class="heroGrid">
+        <div>
+          <div class="kicker">
+            <span class="dot"></span>
+            <span id="t_kicker">Brokerage • Sourcing • Logistics • Standards Data</span>
+          </div>
+
+          <h2 id="t_heroTitle">
+            Build the <span class="grad">parts backbone</span> of the robotics era.
+          </h2>
+
+          <p id="t_heroDesc">
+            PHK PartsBank connects manufacturers and buyers worldwide — with verified suppliers, fast sourcing,
+            transparent quotes, and scalable logistics. Start with robotics parts, expand to industrial, energy, and space-grade components.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="#services" id="t_cta1">See Services</a>
+            <a class="btn" href="#request" id="t_cta2">Request Sourcing</a>
+          </div>
+
+          <div class="mini" aria-label="Highlights">
+            <span>✅ <span id="t_mini1">Supplier verification</span></span>
+            <span>⚙️ <span id="t_mini2">Robotics/AMR BOM sourcing</span></span>
+            <span>📦 <span id="t_mini3">Global shipping support</span></span>
+            <span>📊 <span id="t_mini4">Parts standardization</span></span>
+          </div>
+
+          <div class="kpiRow">
+            <div class="kpi">
+              <b id="t_kpi1t">Focus</b>
+              <span id="t_kpi1v">Robotics & Industrial Parts</span>
+            </div>
+            <div class="kpi">
+              <b id="t_kpi2t">Model</b>
+              <span id="t_kpi2v">B2B Exchange + Data Hub</span>
+            </div>
+            <div class="kpi">
+              <b id="t_kpi3t">Expansion</b>
+              <span id="t_kpi3v">Energy & Space-grade parts</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cardRight" aria-label="What we do">
+          <h3 id="t_rightTitle">What we do (MVP → Scale)</h3>
+          <ul>
+            <li id="t_right1">Match buyers with verified suppliers for motors, reducers, sensors, batteries, controllers.</li>
+            <li id="t_right2">Provide RFQ, quote comparison, lead-time planning, and quality checks.</li>
+            <li id="t_right3">Offer logistics coordination, customs guidance, and documentation support.</li>
+            <li id="t_right4">Build a parts database: specs, compatibility, standards, and reliability signals.</li>
+            <li id="t_right5">Prepare finance integration (PHK Bank): escrow, trade credit, insurance, UBI model.</li>
+          </ul>
+
+          <hr class="hr" />
+          <div class="muted" style="font-size:12px" id="t_rightNote">
+            *This page is a public overview. For private investor/partner materials, contact us.
           </div>
         </div>
       </div>
 
-      <div class="btns">
-        <a class="btn" href="#mission">미션</a>
-        <a class="btn" href="#services">핵심 서비스</a>
-        <a class="btn" href="#model">수익 모델</a>
-        <a class="btn" href="#roadmap">로드맵</a>
-        <a class="btn" href="#contact">연락처</a>
+      <div class="grid" id="services">
+        <div class="box">
+          <div class="tag" id="t_s1tag">Brokerage</div>
+          <h4 id="t_s1t">Parts Exchange & Deal Matching</h4>
+          <p id="t_s1d">We connect buyers and suppliers with transparent RFQ, quotes, and contract-ready documentation.</p>
+        </div>
+        <div class="box">
+          <div class="tag" id="t_s2tag">Sourcing</div>
+          <h4 id="t_s2t">BOM Sourcing for Robotics/AMR</h4>
+          <p id="t_s2d">From reducers to LiDAR — fast procurement with lead-time control and alternatives mapping.</p>
+        </div>
+        <div class="box">
+          <div class="tag" id="t_s3tag">Logistics</div>
+          <h4 id="t_s3t">Global Shipping Support</h4>
+          <p id="t_s3d">Shipping options, packaging guidance, customs docs, and delivery risk reduction.</p>
+        </div>
       </div>
     </div>
 
-    <div class="grid">
-      <section class="card c6" id="mission">
-        <h3 class="title">1) 미션 (Mission)</h3>
-        <ul class="list">
-          <li>부품 조달의 불확실성을 제거하고 <b>생산 리드타임을 단축</b></li>
-          <li>부품 표준화를 통해 <b>제조 단가 절감</b> 및 <b>품질 안정화</b></li>
-          <li>재고·물류·정산을 통합해 <b>글로벌 공급망을 “은행처럼” 운영</b></li>
-          <li>PHK Robotics/계열사와 연동해 <b>대량생산 체계</b>의 기반 구축</li>
-        </ul>
-      </section>
+    <section>
+      <div class="sectionHead">
+        <h3 id="t_scopeTitle">Initial Scope</h3>
+        <p id="t_scopeSub">Start with high-frequency robotics parts → expand to industrial/energy/space parts</p>
+      </div>
 
-      <section class="card c6" id="services">
-        <h3 class="title">2) 핵심 서비스 (Core Services)</h3>
-        <ul class="list">
-          <li><b>Parts Catalog</b>: 표준 부품 카탈로그(규격/호환/인증)</li>
-          <li><b>Inventory Vault</b>: 부품 재고 창고(자동화 창고/로봇 피킹)</li>
-          <li><b>Global Sourcing</b>: 제조사/협력사 매칭 및 대량 구매</li>
-          <li><b>Quality & Trace</b>: 품질검사/시리얼 추적/불량관리</li>
-          <li><b>Logistics Router</b>: 출고/배송/통관/리버스 물류</li>
-          <li><b>Settlement</b>: B2B 정산(월정산/선결제/후결제 옵션)</li>
-        </ul>
-        <div class="foot">
-          <span class="pill">Motors</span>
-          <span class="pill">Reducers</span>
-          <span class="pill">Sensors</span>
-          <span class="pill">Batteries</span>
-          <span class="pill">Controllers</span>
-          <span class="pill">Actuators</span>
-          <span class="pill">PCBs</span>
-          <span class="pill">Frames</span>
+      <div class="cols">
+        <div class="box">
+          <h4 id="t_scopeA">Robotics (MVP)</h4>
+          <ul class="list">
+            <li class="item">
+              <b id="t_sc1">Actuators & Motion</b>
+              <small id="t_sc1d">Motors, reducers (harmonic/planetary), gearboxes, drives, encoders.</small>
+            </li>
+            <li class="item">
+              <b id="t_sc2">Sensors & Perception</b>
+              <small id="t_sc2d">LiDAR, depth cameras, IMU, force/torque, proximity, industrial cameras.</small>
+            </li>
+            <li class="item">
+              <b id="t_sc3">Power & Control</b>
+              <small id="t_sc3d">Batteries, BMS, controllers, SBC/IPC, PLC, wiring harness, connectors.</small>
+            </li>
+          </ul>
         </div>
-      </section>
 
-      <section class="card c6" id="model">
-        <h3 class="title">3) 수익 모델 (Business Model)</h3>
-        <ul class="list">
-          <li><b>마진</b>: 표준 부품 판매/대량 구매 마진</li>
-          <li><b>플랫폼 수수료</b>: 매칭/거래/정산 수수료</li>
-          <li><b>창고/보관료</b>: 재고 보관, 보험, 긴급출고 프리미엄</li>
-          <li><b>검사/인증</b>: 품질검사, 인증 대행, 추적 서비스</li>
-          <li><b>구독</b>: 기업용 대시보드(재고/수요예측/리포트)</li>
-        </ul>
-      </section>
-
-      <section class="card c6" id="roadmap">
-        <h3 class="title">4) 로드맵 (Roadmap)</h3>
-        <ul class="list">
-          <li><b>Phase 1</b>: 핵심 부품 200종 카탈로그 + 파트너 제조사 확보</li>
-          <li><b>Phase 2</b>: 자동화 창고(피킹/검수) + 월정산 시스템</li>
-          <li><b>Phase 3</b>: 글로벌 허브(중동/아시아/유럽) + 통관/배송 표준화</li>
-          <li><b>Phase 4</b>: 수요예측 AI + 부품 금융(선구매/공급망 금융)</li>
-        </ul>
-      </section>
-
-      <section class="card" id="contact">
-        <h3 class="title">Contact</h3>
-        <div class="sub">
-          Email: <span class="mono">info@phkpartsbank.pi</span><br/>
-          * 도메인/메일 서버 연결 전이면, 임시 포워딩으로 운영 가능합니다.
+        <div class="box">
+          <h4 id="t_scopeB">Industrial / Energy / Space (Scale)</h4>
+          <ul class="list">
+            <li class="item">
+              <b id="t_sc4">Industrial Components</b>
+              <small id="t_sc4d">Bearings, linear guides, precision parts, valves, pumps, servo systems.</small>
+            </li>
+            <li class="item">
+              <b id="t_sc5">Energy-grade Parts</b>
+              <small id="t_sc5d">High-temp materials, vacuum parts, cryogenic components, shielding.</small>
+            </li>
+            <li class="item">
+              <b id="t_sc6">Space-grade Parts</b>
+              <small id="t_sc6d">Radiation-tolerant electronics, aerospace fasteners, thermal control items.</small>
+            </li>
+          </ul>
         </div>
-        <div class="foot">
-          © PHK PartsBank. All rights reserved.
+      </div>
+    </section>
+
+    <section>
+      <div class="sectionHead">
+        <h3 id="t_howTitle">How It Works</h3>
+        <p id="t_howSub">Simple 4-step process for fast sourcing</p>
+      </div>
+
+      <div class="grid">
+        <div class="box">
+          <div class="tag">1</div>
+          <h4 id="t_h1">Submit RFQ</h4>
+          <p id="t_h1d">Share specs, quantity, target price, delivery region, and timeline.</p>
         </div>
-      </section>
-    </div>
+        <div class="box">
+          <div class="tag">2</div>
+          <h4 id="t_h2">Supplier Match</h4>
+          <p id="t_h2d">We identify verified suppliers and alternatives with compatible specs.</p>
+        </div>
+        <div class="box">
+          <div class="tag">3</div>
+          <h4 id="t_h3">Quote & QA</h4>
+          <p id="t_h3d">Compare quotes, confirm lead time, and apply quality check options.</p>
+        </div>
+        <div class="box">
+          <div class="tag">4</div>
+          <h4 id="t_h4">Shipping & Delivery</h4>
+          <p id="t_h4d">Coordinate logistics, documents, customs support, and delivery tracking.</p>
+        </div>
+        <div class="box">
+          <div class="tag">+</div>
+          <h4 id="t_h5">Data Hub</h4>
+          <p id="t_h5d">Build a parts database: compatibility, standards, reliability signals.</p>
+        </div>
+        <div class="box">
+          <div class="tag">+</div>
+          <h4 id="t_h6">Finance Ready</h4>
+          <p id="t_h6d">Prepare escrow, trade credit, and insurance integration with PHK Bank.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="request">
+      <div class="sectionHead">
+        <h3 id="t_reqTitle">Request Sourcing</h3>
+        <p id="t_reqSub">Use email now — we’ll reply with next steps</p>
+      </div>
+
+      <div class="cols">
+        <div class="box">
+          <h4 id="t_reqA">Email Template</h4>
+          <p class="muted" id="t_reqAd">Copy and send this template to speed up sourcing.</p>
+          <div style="margin-top:10px; border:1px solid var(--line); border-radius: var(--radius); background: rgba(0,0,0,.18); padding:12px">
+            <pre id="emailTemplate" style="margin:0; white-space:pre-wrap; font-size:12px; color:var(--text)"></pre>
+          </div>
+          <div class="ctaRow" style="margin-top:10px">
+            <button class="btn primary" type="button" id="copyTemplateBtn">Copy Template</button>
+            <button class="btn" type="button" id="openMailBtn">Open Email App</button>
+          </div>
+        </div>
+
+        <div class="box">
+          <h4 id="t_revTitle">Revenue Model (B2B)</h4>
+          <ul class="list">
+            <li class="item">
+              <b id="t_rev1">Brokerage fee</b>
+              <small id="t_rev1d">Percentage on transaction value for matched deals.</small>
+            </li>
+            <li class="item">
+              <b id="t_rev2">Long-term supply contracts</b>
+              <small id="t_rev2d">Enterprise / government supply agreements and SLAs.</small>
+            </li>
+            <li class="item">
+              <b id="t_rev3">Data & standard licensing</b>
+              <small id="t_rev3d">Specs, compatibility maps, reliability signals, and standards APIs.</small>
+            </li>
+            <li class="item">
+              <b id="t_rev4">Finance integration</b>
+              <small id="t_rev4d">Escrow, trade credit, insurance, and UBI-linked programs via PHK Bank.</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sectionHead">
+        <h3 id="t_roadTitle">Roadmap</h3>
+        <p id="t_roadSub">MVP → Scale</p>
+      </div>
+
+      <div class="cols">
+        <div class="box">
+          <h4 id="t_r1t">Phase 1 — MVP (0–3 months)</h4>
+          <p class="muted" id="t_r1d">
+            Verified supplier list • RFQ/Quote workflow • Robotics/AMR categories • Basic logistics support.
+          </p>
+        </div>
+        <div class="box">
+          <h4 id="t_r2t">Phase 2 — Data Hub (3–9 months)</h4>
+          <p class="muted" id="t_r2d">
+            Parts database • Compatibility mapping • Standards/spec normalization • Quality/risk signals.
+          </p>
+        </div>
+        <div class="box">
+          <h4 id="t_r3t">Phase 3 — Finance (9–18 months)</h4>
+          <p class="muted" id="t_r3d">
+            Escrow • Trade credit • Insurance • Supplier scoring • PHK Bank integration.
+          </p>
+        </div>
+        <div class="box">
+          <h4 id="t_r4t">Phase 4 — Global Scale (18+ months)</h4>
+          <p class="muted" id="t_r4d">
+            Multi-region warehouses • Enterprise portals • Energy/space-grade parts sourcing expansion.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="footer">
+        <div>
+          <div style="font-weight:800; letter-spacing:.2px" id="t_contactTitle">Contact</div>
+          <div class="muted" style="font-size:13px; margin-top:6px">
+            <span id="t_emailLabel">Email</span>:
+            <a href="mailto:info@phkpartsbank.com" id="emailLink" style="text-decoration:underline">info@phkpartsbank.com</a>
+          </div>
+          <div class="muted" style="font-size:12px; margin-top:6px" id="t_footerNote">
+            PHK PartsBank — Parts exchange, sourcing, logistics, and standards data hub.
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="pill" href="#top">⬆️ <span id="t_backTop">Back to top</span></a>
+          <button class="pill" type="button" id="copyPageBtn">🔗 <span id="t_copyLink">Copy Page Link</span></button>
+        </div>
+      </div>
+    </section>
   </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <div class="bar" aria-hidden="true"></div>
+    <div id="toastMsg" style="font-size:12px"></div>
+  </div>
+
+  <script>
+    // ---------- i18n ----------
+    const languages = [
+      { code:"auto", name:"Auto" },
+      { code:"en", name:"English" },
+      { code:"ko", name:"한국어" },
+      { code:"ar", name:"العربية" },
+      { code:"zh", name:"中文" },
+      { code:"ja", name:"日本語" },
+      { code:"es", name:"Español" },
+      { code:"fr", name:"Français" },
+      { code:"de", name:"Deutsch" },
+      { code:"ru", name:"Русский" },
+      { code:"pt", name:"Português" },
+      { code:"hi", name:"हिन्दी" }
+    ];
+
+    const T = {
+      en: {
+        t_brand:"PHK PartsBank",
+        t_tagline:"Global Robotics & Industrial Parts Exchange",
+        t_kicker:"Brokerage • Sourcing • Logistics • Standards Data",
+        t_copyEmail:"Copy Email",
+        t_contactTop:"Contact",
+        t_heroTitle:"Build the parts backbone of the robotics era.",
+        t_heroDesc:"PHK PartsBank connects manufacturers and buyers worldwide — with verified suppliers, fast sourcing, transparent quotes, and scalable logistics. Start with robotics parts, expand to industrial, energy, and space-grade components.",
+        t_cta1:"See Services",
+        t_cta2:"Request Sourcing",
+        t_mini1:"Supplier verification",
+        t_mini2:"Robotics/AMR BOM sourcing",
+        t_mini3:"Global shipping support",
+        t_mini4:"Parts standardization",
+        t_kpi1t:"Focus", t_kpi1v:"Robotics & Industrial Parts",
+        t_kpi2t:"Model", t_kpi2v:"B2B Exchange + Data Hub",
+        t_kpi3t:"Expansion", t_kpi3v:"Energy & Space-grade parts",
+
+        t_rightTitle:"What we do (MVP → Scale)",
+        t_right1:"Match buyers with verified suppliers for motors, reducers, sensors, batteries, controllers.",
+        t_right2:"Provide RFQ, quote comparison, lead-time planning, and quality checks.",
+        t_right3:"Offer logistics coordination, customs guidance, and documentation support.",
+        t_right4:"Build a parts database: specs, compatibility, standards, and reliability signals.",
+        t_right5:"Prepare finance integration (PHK Bank): escrow, trade credit, insurance, UBI model.",
+        t_rightNote:"*This page is a public overview. For private investor/partner materials, contact us.",
+
+        t_s1tag:"Brokerage", t_s1t:"Parts Exchange & Deal Matching", t_s1d:"We connect buyers and suppliers with transparent RFQ, quotes, and contract-ready documentation.",
+        t_s2tag:"Sourcing", t_s2t:"BOM Sourcing for Robotics/AMR", t_s2d:"From reducers to LiDAR — fast procurement with lead-time control and alternatives mapping.",
+        t_s3tag:"Logistics", t_s3t:"Global Shipping Support", t_s3d:"Shipping options, packaging guidance, customs docs, and delivery risk reduction.",
+
+        t_scopeTitle:"Initial Scope",
+        t_scopeSub:"Start with high-frequency robotics parts → expand to industrial/energy/space parts",
+        t_scopeA:"Robotics (MVP)",
+        t_scopeB:"Industrial / Energy / Space (Scale)",
+        t_sc1:"Actuators & Motion", t_sc1d:"Motors, reducers (harmonic/planetary), gearboxes, drives, encoders.",
+        t_sc2:"Sensors & Perception", t_sc2d:"LiDAR, depth cameras, IMU, force/torque, proximity, industrial cameras.",
+        t_sc3:"Power & Control", t_sc3d:"Batteries, BMS, controllers, SBC/IPC, PLC, wiring harness, connectors.",
+        t_sc4:"Industrial Components", t_sc4d:"Bearings, linear guides, precision parts, valves, pumps, servo systems.",
+        t_sc5:"Energy-grade Parts", t_sc5d:"High-temp materials, vacuum parts, cryogenic components, shielding.",
+        t_sc6:"Space-grade Parts", t_sc6d:"Radiation-tolerant electronics, aerospace fasteners, thermal control items.",
+
+        t_howTitle:"How It Works",
+        t_howSub:"Simple 4-step process for fast sourcing",
+        t_h1:"Submit RFQ", t_h1d:"Share specs, quantity, target price, delivery region, and timeline.",
+        t_h2:"Supplier Match", t_h2d:"We identify verified suppliers and alternatives with compatible specs.",
+        t_h3:"Quote & QA", t_h3d:"Compare quotes, confirm lead time, and apply quality check options.",
+        t_h4:"Shipping & Delivery", t_h4d:"Coordinate logistics, documents, customs support, and delivery tracking.",
+        t_h5:"Data Hub", t_h5d:"Build a parts database: compatibility, standards, reliability signals.",
+        t_h6:"Finance Ready", t_h6d:"Prepare escrow, trade credit, and insurance integration with PHK Bank.",
+
+        t_reqTitle:"Request Sourcing",
+        t_reqSub:"Use email now — we’ll reply with next steps",
+        t_reqA:"Email Template",
+        t_reqAd:"Copy and send this template to speed up sourcing.",
+        t_revTitle:"Revenue Model (B2B)",
+        t_rev1:"Brokerage fee", t_rev1d:"Percentage on transaction value for matched deals.",
+        t_rev2:"Long-term supply contracts", t_rev2d:"Enterprise / government supply agreements and SLAs.",
+        t_rev3:"Data & standard licensing", t_rev3d:"Specs, compatibility maps, reliability signals, and standards APIs.",
+        t_rev4:"Finance integration", t_rev4d:"Escrow, trade credit, insurance, and UBI-linked programs via PHK Bank.",
+
+        t_roadTitle:"Roadmap",
+        t_roadSub:"MVP → Scale",
+        t_r1t:"Phase 1 — MVP (0–3 months)",
+        t_r1d:"Verified supplier list • RFQ/Quote workflow • Robotics/AMR categories • Basic logistics support.",
+        t_r2t:"Phase 2 — Data Hub (3–9 months)",
+        t_r2d:"Parts database • Compatibility mapping • Standards/spec normalization • Quality/risk signals.",
+        t_r3t:"Phase 3 — Finance (9–18 months)",
+        t_r3d:"Escrow • Trade credit • Insurance • Supplier scoring • PHK Bank integration.",
+        t_r4t:"Phase 4 — Global Scale (18+ months)",
+        t_r4d:"Multi-region warehouses • Enterprise portals • Energy/space-grade parts sourcing expansion.",
+
+        t_contactTitle:"Contact",
+        t_emailLabel:"Email",
+        t_footerNote:"PHK PartsBank — Parts exchange, sourcing, logistics, and standards data hub.",
+        t_backTop:"Back to top",
+        t_copyLink:"Copy Page Link"
+      },
+
+      ko: {
+        t_brand:"PHK PartsBank",
+        t_tagline:"글로벌 로봇·산업 부품 거래소",
+        t_kicker:"중개 • 소싱 • 물류 • 표준/데이터",
+        t_copyEmail:"이메일 복사",
+        t_contactTop:"연락",
+        t_heroTitle:"로봇 시대의 ‘부품 백본’을 만듭니다.",
+        t_heroDesc:"PHK PartsBank는 전 세계 제조사와 구매자를 연결합니다 — 검증된 공급사, 빠른 소싱, 투명한 견적, 확장 가능한 물류. 로봇 부품부터 시작해 산업·에너지·우주급 부품으로 확장합니다.",
+        t_cta1:"서비스 보기",
+        t_cta2:"소싱 요청하기",
+        t_mini1:"공급사 검증",
+        t_mini2:"로봇/AMR BOM 소싱",
+        t_mini3:"글로벌 배송 지원",
+        t_mini4:"부품 표준화",
+        t_kpi1t:"핵심", t_kpi1v:"로봇·산업 부품",
+        t_kpi2t:"모델", t_kpi2v:"B2B 거래소 + 데이터 허브",
+        t_kpi3t:"확장", t_kpi3v:"에너지·우주급 부품",
+
+        t_rightTitle:"우리가 하는 일 (MVP → 확장)",
+        t_right1:"모터·감속기·센서·배터리·컨트롤러 등 검증된 공급사와 구매자를 매칭합니다.",
+        t_right2:"RFQ, 견적 비교, 리드타임 계획, 품질 옵션을 제공합니다.",
+        t_right3:"물류 조율, 통관 가이드, 서류 지원을 제공합니다.",
+        t_right4:"사양·호환·표준·신뢰도 신호를 포함한 부품 DB를 구축합니다.",
+        t_right5:"PHK Bank 연동(에스크로·외상·보험·UBI 모델)을 준비합니다.",
+        t_rightNote:"*이 페이지는 공개용 요약입니다. 투자자/파트너용 자료는 별도 문의 바랍니다.",
+
+        t_s1tag:"중개", t_s1t:"부품 거래 매칭", t_s1d:"투명한 RFQ/견적/계약 문서로 구매자와 공급사를 연결합니다.",
+        t_s2tag:"소싱", t_s2t:"로봇/AMR BOM 소싱", t_s2d:"감속기부터 LiDAR까지 — 리드타임 관리와 대체품 매핑까지 지원합니다.",
+        t_s3tag:"물류", t_s3t:"글로벌 배송 지원", t_s3d:"배송 옵션, 포장 가이드, 통관 서류, 리스크를 줄이는 딜리버리를 제공합니다.",
+
+        t_scopeTitle:"초기 취급 범위",
+        t_scopeSub:"로봇 핵심 부품부터 시작 → 산업/에너지/우주 부품 확장",
+        t_scopeA:"로봇 (MVP)",
+        t_scopeB:"산업 / 에너지 / 우주 (확장)",
+        t_sc1:"구동/모션", t_sc1d:"모터, 감속기(하모닉/유성), 기어박스, 드라이브, 엔코더.",
+        t_sc2:"센서/인지", t_sc2d:"LiDAR, 깊이카메라, IMU, 힘/토크, 근접, 산업용 카메라.",
+        t_sc3:"전원/제어", t_sc3d:"배터리, BMS, 컨트롤러, SBC/IPC, PLC, 하네스, 커넥터.",
+        t_sc4:"산업 핵심 부품", t_sc4d:"베어링, LM가이드, 정밀부품, 밸브, 펌프, 서보 시스템.",
+        t_sc5:"에너지급 부품", t_sc5d:"고내열 소재, 진공 부품, 극저온 부품, 차폐.",
+        t_sc6:"우주급 부품", t_sc6d:"방사선 내성 전자부품, 항공 패스너, 열제어 부품.",
+
+        t_howTitle:"진행 방식",
+        t_howSub:"빠른 소싱을 위한 4단계",
+        t_h1:"RFQ 제출", t_h1d:"사양, 수량, 목표단가, 납품지역, 일정 정보를 보내주세요.",
+        t_h2:"공급사 매칭", t_h2d:"검증 공급사와 호환 가능한 대체품을 제안합니다.",
+        t_h3:"견적/품질", t_h3d:"견적 비교, 리드타임 확정, 품질 옵션을 적용합니다.",
+        t_h4:"배송/납품", t_h4d:"물류, 서류, 통관 지원, 트래킹까지 연결합니다.",
+        t_h5:"데이터 허브", t_h5d:"호환성·표준·신뢰도 기반의 부품 DB를 구축합니다.",
+        t_h6:"금융 준비", t_h6d:"PHK Bank 연동(에스크로·외상·보험 등)을 준비합니다.",
+
+        t_reqTitle:"소싱 요청",
+        t_reqSub:"이메일로 바로 요청하시면 됩니다",
+        t_reqA:"이메일 템플릿",
+        t_reqAd:"아래 템플릿을 복사해 보내면 소싱이 빨라집니다.",
+        t_revTitle:"수익 모델 (B2B)",
+        t_rev1:"중개 수수료", t_rev1d:"거래액 기준 수수료.",
+        t_rev2:"장기 공급 계약", t_rev2d:"기업/정부 대상 SLA 기반 공급.",
+        t_rev3:"데이터/표준 라이선스", t_rev3d:"사양·호환·신뢰도 신호·표준 API.",
+        t_rev4:"금융 연동", t_rev4d:"PHK Bank 기반 에스크로·외상·보험·UBI 연계.",
+
+        t_roadTitle:"로드맵",
+        t_roadSub:"MVP → 확장",
+        t_r1t:"1단계 — MVP (0~3개월)",
+        t_r1d:"검증 공급사 리스트 • RFQ/견적 • 로봇/AMR 카테고리 • 기본 물류 지원.",
+        t_r2t:"2단계 — 데이터 허브 (3~9개월)",
+        t_r2d:"부품 DB • 호환성 매핑 • 표준화 • 품질/리스크 신호.",
+        t_r3t:"3단계 — 금융 (9~18개월)",
+        t_r3d:"에스크로 • 외상/신용 • 보험 • 공급사 스코어 • PHK Bank 연동.",
+        t_r4t:"4단계 — 글로벌 확장 (18개월+)",
+        t_r4d:"멀티리전 창고 • 엔터프라이즈 포털 • 에너지/우주급 부품 확장.",
+
+        t_contactTitle:"연락",
+        t_emailLabel:"이메일",
+        t_footerNote:"PHK PartsBank — 부품 거래·소싱·물류·표준 데이터 허브.",
+        t_backTop:"맨 위로",
+        t_copyLink:"페이지 링크 복사"
+      }
+    };
+
+    // Fallback: show English for all unspecified languages
+    for (const lang of languages){
+      if (!T[lang.code] && lang.code !== "auto") T[lang.code] = T.en;
+    }
+
+    const langSelect = document.getElementById("langSelect");
+    const toast = document.getElementById("toast");
+    const toastMsg = document.getElementById("toastMsg");
+
+    function showToast(msg){
+      toastMsg.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=> toast.classList.remove("show"), 2400);
+    }
+
+    function setText(id, value){
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function detectLang(){
+      const nav = (navigator.language || "en").toLowerCase();
+      if (nav.startsWith("ko")) return "ko";
+      if (nav.startsWith("ar")) return "ar";
+      if (nav.startsWith("zh")) return "zh";
+      if (nav.startsWith("ja")) return "ja";
+      if (nav.startsWith("es")) return "es";
+      if (nav.startsWith("fr")) return "fr";
+      if (nav.startsWith("de")) return "de";
+      if (nav.startsWith("ru")) return "ru";
+      if (nav.startsWith("pt")) return "pt";
+      if (nav.startsWith("hi")) return "hi";
+      return "en";
+    }
+
+    function applyLang(code){
+      const use = (code === "auto") ? detectLang() : code;
+      const dict = T[use] || T.en;
+
+      Object.keys(T.en).forEach(key=>{
+        const v = dict[key] || T.en[key];
+        setText(key, v);
+      });
+
+      // Email template
+      const email = "info@phkpartsbank.com";
+      const template = (use === "ko")
+`제목: [PHK PartsBank] 부품 소싱 요청 (RFQ)
+
+안녕하세요. PHK PartsBank에 부품 소싱을 요청드립니다.
+
+1) 제품/부품명:
+2) 사양(링크/도면/데이터시트):
+3) 수량(MOQ 포함):
+4) 목표 단가(가능하면):
+5) 납기 희망일:
+6) 납품 지역/인코텀즈(가능하면):
+7) 사용 용도(로봇/AMR/산업 등):
+8) 대체품 허용 여부:
+9) 품질 요구(인증/검사/샘플 필요 여부):
+10) 회사/담당자/연락처:
+
+감사합니다.
+`
+:
+`Subject: [PHK PartsBank] Parts Sourcing Request (RFQ)
+
+Hello PHK PartsBank,
+
+Please support the following parts sourcing request:
+
+1) Part name / item:
+2) Specs (link/drawing/datasheet):
+3) Quantity (include MOQ if known):
+4) Target price (if any):
+5) Desired lead time / delivery date:
+6) Delivery region / Incoterms (if any):
+7) Use case (robotics/AMR/industrial):
+8) Alternative parts allowed?:
+9) Quality requirements (certs/inspection/samples):
+10) Company / contact details:
+
+Thank you.
+`;
+      document.getElementById("emailTemplate").textContent = template;
+
+      // Keep select value (auto/en/ko/...)
+      langSelect.value = code;
+      document.documentElement.lang = use;
+      document.documentElement.dir = (use === "ar") ? "rtl" : "ltr";
+    }
+
+    // Populate select
+    for (const l of languages){
+      const opt = document.createElement("option");
+      opt.value = l.code;
+      opt.textContent = l.name;
+      langSelect.appendChild(opt);
+    }
+
+    // Restore saved language
+    const saved = localStorage.getItem("phk_partsbank_lang") || "auto";
+    applyLang(saved);
+
+    langSelect.addEventListener("change", (e)=>{
+      const code = e.target.value;
+      localStorage.setItem("phk_partsbank_lang", code);
+      applyLang(code);
+      showToast(code === "auto" ? "Language: Auto" : `Language: ${code}`);
+    });
+
+    // ---------- Actions ----------
+    async function copyToClipboard(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        return true;
+      }catch(e){
+        // fallback
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position="fixed";
+        ta.style.left="-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        try{
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+          return true;
+        }catch(err){
+          document.body.removeChild(ta);
+          return false;
+        }
+      }
+    }
+
+    document.getElementById("copyEmailBtn").addEventListener("click", async ()=>{
+      const ok = await copyToClipboard("info@phkpartsbank.com");
+      showToast(ok ? "Email copied: info@phkpartsbank.com" : "Copy failed");
+    });
+
+    document.getElementById("copyTemplateBtn").addEventListener("click", async ()=>{
+      const text = document.getElementById("emailTemplate").textContent;
+      const ok = await copyToClipboard(text);
+      showToast(ok ? "Template copied" : "Copy failed");
+    });
+
+    document.getElementById("openMailBtn").addEventListener("click", ()=>{
+      const subject = encodeURIComponent("[PHK PartsBank] RFQ / Parts Sourcing Request");
+      const body = encodeURIComponent(document.getElementById("emailTemplate").textContent);
+      window.location.href = `mailto:info@phkpartsbank.com?subject=${subject}&body=${body}`;
+    });
+
+    document.getElementById("copyPageBtn").addEventListener("click", async ()=>{
+      const link = window.location.href.split("#")[0];
+      const ok = await copyToClipboard(link);
+      showToast(ok ? "Link copied" : "Copy failed");
+    });
+  </script>
 </body>
 </html>
