@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PHK PartsBank</title>
+  <meta name="description" content="PHK PartsBank — 로보틱스·산업 핵심부품의 표준화, 재고/유통/정산을 통합하는 글로벌 부품은행 플랫폼" />
+  <style>
+    :root { --bg:#0b0f18; --card:#121a2a; --line:#24304a; --txt:#eaf1ff; --muted:#9fb0d0; }
+    body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,sans-serif; background:var(--bg); color:var(--txt); }
+    .wrap{ max-width:980px; margin:0 auto; padding:24px; }
+    .hero{ border:1px solid var(--line); background:linear-gradient(180deg,#101a2e,#0b0f18); border-radius:18px; padding:22px; }
+    .brand{ display:flex; gap:12px; align-items:center; }
+    .logo{ width:44px; height:44px; border-radius:14px; background:#57d3ff; color:#0b0f18; display:flex; align-items:center; justify-content:center; font-weight:900; }
+    h1{ margin:6px 0 0; font-size:26px; letter-spacing:0.2px; }
+    .sub{ margin:10px 0 0; color:var(--muted); line-height:1.55; }
+    .grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:12px; margin-top:14px; }
+    .card{ grid-column:span 12; border:1px solid var(--line); background:var(--card); border-radius:16px; padding:16px; }
+    @media(min-width:860px){ .c6{ grid-column:span 6; } .c4{ grid-column:span 4; } }
+    .title{ font-weight:800; margin:0 0 8px; }
+    .list{ margin:0; padding-left:18px; color:var(--muted); line-height:1.7; }
+    .btns{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+    .btn{ border:1px solid var(--line); background:#0f1626; color:var(--txt); padding:10px 12px; border-radius:12px; text-decoration:none; font-weight:700; }
+    .btn:hover{ background:#16223a; }
+    .foot{ margin-top:18px; color:var(--muted); font-size:13px; }
+    .badge{ display:inline-block; margin-left:8px; padding:3px 8px; border-radius:999px; border:1px solid var(--line); color:var(--muted); font-size:12px; }
+    .mono{ font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
+    .pill{ display:inline-block; margin:4px 6px 0 0; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:#0f1626; color:var(--muted); font-size:12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="brand">
+        <div class="logo">PB</div>
+        <div>
+          <h1>PHK PartsBank <span class="badge">Global Parts Infrastructure</span></h1>
+          <div class="sub">
+            PHK PartsBank는 <b>로보틱스·산업 핵심부품</b>을 “표준화 → 재고화 → 유통화 → 정산화”하여
+            <b>전 세계 공급망을 연결하는 부품은행(Parts Bank)</b> 플랫폼입니다.
+          </div>
+        </div>
+      </div>
+
+      <div class="btns">
+        <a class="btn" href="#mission">미션</a>
+        <a class="btn" href="#services">핵심 서비스</a>
+        <a class="btn" href="#model">수익 모델</a>
+        <a class="btn" href="#roadmap">로드맵</a>
+        <a class="btn" href="#contact">연락처</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="card c6" id="mission">
+        <h3 class="title">1) 미션 (Mission)</h3>
+        <ul class="list">
+          <li>부품 조달의 불확실성을 제거하고 <b>생산 리드타임을 단축</b></li>
+          <li>부품 표준화를 통해 <b>제조 단가 절감</b> 및 <b>품질 안정화</b></li>
+          <li>재고·물류·정산을 통합해 <b>글로벌 공급망을 “은행처럼” 운영</b></li>
+          <li>PHK Robotics/계열사와 연동해 <b>대량생산 체계</b>의 기반 구축</li>
+        </ul>
+      </section>
+
+      <section class="card c6" id="services">
+        <h3 class="title">2) 핵심 서비스 (Core Services)</h3>
+        <ul class="list">
+          <li><b>Parts Catalog</b>: 표준 부품 카탈로그(규격/호환/인증)</li>
+          <li><b>Inventory Vault</b>: 부품 재고 창고(자동화 창고/로봇 피킹)</li>
+          <li><b>Global Sourcing</b>: 제조사/협력사 매칭 및 대량 구매</li>
+          <li><b>Quality & Trace</b>: 품질검사/시리얼 추적/불량관리</li>
+          <li><b>Logistics Router</b>: 출고/배송/통관/리버스 물류</li>
+          <li><b>Settlement</b>: B2B 정산(월정산/선결제/후결제 옵션)</li>
+        </ul>
+        <div class="foot">
+          <span class="pill">Motors</span>
+          <span class="pill">Reducers</span>
+          <span class="pill">Sensors</span>
+          <span class="pill">Batteries</span>
+          <span class="pill">Controllers</span>
+          <span class="pill">Actuators</span>
+          <span class="pill">PCBs</span>
+          <span class="pill">Frames</span>
+        </div>
+      </section>
+
+      <section class="card c6" id="model">
+        <h3 class="title">3) 수익 모델 (Business Model)</h3>
+        <ul class="list">
+          <li><b>마진</b>: 표준 부품 판매/대량 구매 마진</li>
+          <li><b>플랫폼 수수료</b>: 매칭/거래/정산 수수료</li>
+          <li><b>창고/보관료</b>: 재고 보관, 보험, 긴급출고 프리미엄</li>
+          <li><b>검사/인증</b>: 품질검사, 인증 대행, 추적 서비스</li>
+          <li><b>구독</b>: 기업용 대시보드(재고/수요예측/리포트)</li>
+        </ul>
+      </section>
+
+      <section class="card c6" id="roadmap">
+        <h3 class="title">4) 로드맵 (Roadmap)</h3>
+        <ul class="list">
+          <li><b>Phase 1</b>: 핵심 부품 200종 카탈로그 + 파트너 제조사 확보</li>
+          <li><b>Phase 2</b>: 자동화 창고(피킹/검수) + 월정산 시스템</li>
+          <li><b>Phase 3</b>: 글로벌 허브(중동/아시아/유럽) + 통관/배송 표준화</li>
+          <li><b>Phase 4</b>: 수요예측 AI + 부품 금융(선구매/공급망 금융)</li>
+        </ul>
+      </section>
+
+      <section class="card" id="contact">
+        <h3 class="title">Contact</h3>
+        <div class="sub">
+          Email: <span class="mono">info@phkpartsbank.pi</span><br/>
+          * 도메인/메일 서버 연결 전이면, 임시 포워딩으로 운영 가능합니다.
+        </div>
+        <div class="foot">
+          © PHK PartsBank. All rights reserved.
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
