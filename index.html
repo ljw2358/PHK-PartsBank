@@ -6,13 +6,13 @@
   <title>PHK PartsBank</title>
   <meta name="theme-color" content="#0b1220" />
   <style>
-    :root{--bg:#0b1220;--line:rgba(255,255,255,.12);--text:#eaf0ff;--muted:#b8c3e6;--card:rgba(16,26,50,.65);--radius:18px}
+    :root{--bg:#0b1220;--line:rgba(255,255,255,.12);--text:#eaf0ff;--muted:#b8c3e6;--card:rgba(16,26,50,.70);--radius:18px;--accent:#7cf7c2}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;background:var(--bg);color:var(--text)}
     .wrap{max-width:1080px;margin:0 auto;padding:22px 16px 50px}
     header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
     .brand h1{margin:0;font-size:16px}
     .brand p{margin:0;color:var(--muted);font-size:12px}
-    .langs{display:flex;gap:8px;flex-wrap:wrap}
+    .langs{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
     .btn{border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);border-radius:999px;padding:8px 10px;cursor:pointer;font-size:12px}
     .btn.active{background:rgba(124,247,194,.18);border-color:rgba(124,247,194,.35)}
     .card{margin-top:14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:16px}
@@ -20,6 +20,21 @@
     .desc{color:var(--muted);margin:0 0 14px;line-height:1.6}
     .footer{margin-top:18px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.04);padding:14px}
     a{color:inherit}
+    /* ✅ 언어 변경이 “눈에 보이게” */
+    .status{
+      margin-top:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(124,247,194,.25);
+      background:rgba(124,247,194,.10);
+      color:var(--text);
+      font-size:12px;
+    }
+    .status b{color:var(--accent)}
   </style>
 </head>
 <body>
@@ -30,10 +45,20 @@
         <p id="t_tagline">Global Robotics & Industrial Parts Exchange</p>
       </div>
       <div class="langs">
+        <button class="btn" id="langAUTO" type="button">AUTO</button>
         <button class="btn" id="langEN" type="button">EN</button>
         <button class="btn" id="langKR" type="button">KR</button>
+        <button class="btn" id="langAR" type="button">AR</button>
+        <button class="btn" id="langZH" type="button">ZH</button>
+        <button class="btn" id="langJA" type="button">JA</button>
       </div>
     </header>
+
+    <!-- ✅ 여기의 LANG 표시가 바뀌면 = 언어 변환이 정상 작동 -->
+    <div class="status">
+      <div>STATUS: <b id="t_langStatus">LANG: EN</b></div>
+      <div id="t_build">BUILD: 2026-01-21 v3</div>
+    </div>
 
     <div class="card">
       <h2 class="title" id="t_title">Build the parts backbone of the robotics era.</h2>
@@ -60,60 +85,120 @@
   </div>
 
   <script>
-    // ✅ 에러나도 멈추지 않게 안전하게 구성
     (function(){
       const T = {
         en:{
-          t_brand:"PHK PartsBank",
-          t_tagline:"Global Robotics & Industrial Parts Exchange",
-          t_title:"Build the parts backbone of the robotics era.",
-          t_desc:"PHK PartsBank connects manufacturers and buyers worldwide — verified suppliers, fast sourcing, transparent quotes, and scalable logistics.",
-          t_what:"What we do",
-          t_list_html:"<li>Brokerage & deal matching</li><li>BOM sourcing for Robotics/AMR</li><li>Global logistics & documentation support</li><li>Parts standards & data hub</li>",
-          t_contact:"Contact"
+          status:"LANG: EN",
+          brand:"PHK PartsBank",
+          tagline:"Global Robotics & Industrial Parts Exchange",
+          title:"Build the parts backbone of the robotics era.",
+          desc:"PHK PartsBank connects manufacturers and buyers worldwide — verified suppliers, fast sourcing, transparent quotes, and scalable logistics.",
+          what:"What we do",
+          list:`<li>Brokerage & deal matching</li>
+                <li>BOM sourcing for Robotics/AMR</li>
+                <li>Global logistics & documentation support</li>
+                <li>Parts standards & data hub</li>`,
+          contact:"Contact"
         },
         ko:{
-          t_brand:"PHK PartsBank",
-          t_tagline:"글로벌 로봇·산업 부품 거래소",
-          t_title:"로봇 시대의 ‘부품 백본’을 만듭니다.",
-          t_desc:"PHK PartsBank는 전 세계 제조사와 구매자를 연결합니다 — 검증된 공급사, 빠른 소싱, 투명한 견적, 확장 가능한 물류.",
-          t_what:"우리가 하는 일",
-          t_list_html:"<li>부품 중개·거래 매칭</li><li>로봇/AMR BOM 소싱</li><li>글로벌 물류·서류 지원</li><li>부품 표준·데이터 허브</li>",
-          t_contact:"연락처"
+          status:"LANG: KR",
+          brand:"PHK PartsBank",
+          tagline:"글로벌 로봇·산업 부품 거래소",
+          title:"로봇 시대의 ‘부품 백본’을 만듭니다.",
+          desc:"PHK PartsBank는 전 세계 제조사와 구매자를 연결합니다 — 검증된 공급사, 빠른 소싱, 투명한 견적, 확장 가능한 물류.",
+          what:"우리가 하는 일",
+          list:`<li>부품 중개·거래 매칭</li>
+                <li>로봇/AMR BOM 소싱</li>
+                <li>글로벌 물류·서류 지원</li>
+                <li>부품 표준·데이터 허브</li>`,
+          contact:"연락처"
+        },
+        ar:{
+          status:"LANG: AR",
+          brand:"PHK PartsBank",
+          tagline:"منصة عالمية لقطع الروبوتات والصناعة",
+          title:"نبني العمود الفقري لقطع عصر الروبوتات.",
+          desc:"يربط PHK PartsBank بين المصنعين والمشترين عالميًا — موردون موثوقون، توريد سريع، عروض أسعار شفافة، ولوجستيات قابلة للتوسع.",
+          what:"ماذا نفعل",
+          list:`<li>الوساطة ومطابقة الصفقات</li>
+                <li>توريد قائمة المواد للروبوتات/AMR</li>
+                <li>الدعم اللوجستي والوثائق</li>
+                <li>معايير القطع ومركز البيانات</li>`,
+          contact:"التواصل"
+        },
+        zh:{
+          status:"LANG: ZH",
+          brand:"PHK PartsBank",
+          tagline:"全球机器人与工业零部件平台",
+          title:"打造机器人时代的零部件骨干。",
+          desc:"PHK PartsBank 连接全球制造商与采购方——供应商验证、快速寻源、透明报价、可扩展物流。",
+          what:"我们提供什么",
+          list:`<li>撮合交易与中介</li>
+                <li>机器人/AMR BOM 寻源</li>
+                <li>全球物流与单证支持</li>
+                <li>零部件标准与数据中心</li>`,
+          contact:"联系"
+        },
+        ja:{
+          status:"LANG: JA",
+          brand:"PHK PartsBank",
+          tagline:"グローバル ロボット・産業部品プラットフォーム",
+          title:"ロボット時代の部品バックボーンを構築します。",
+          desc:"PHK PartsBankは世界中のメーカーとバイヤーをつなぎます—検証済みサプライヤー、迅速な調達、透明な見積り、拡張可能な物流。",
+          what:"提供内容",
+          list:`<li>仲介・マッチング</li>
+                <li>ロボット/AMRのBOM調達</li>
+                <li>国際物流・書類支援</li>
+                <li>部品標準化・データハブ</li>`,
+          contact:"連絡先"
         }
       };
 
-      function setText(id, val){
-        const el = document.getElementById(id);
-        if(!el) return;
-        el.textContent = val;
-      }
-      function setHTML(id, html){
-        const el = document.getElementById(id);
-        if(!el) return;
-        el.innerHTML = html;
+      function $(id){ return document.getElementById(id); }
+
+      function detectLang(){
+        const nav=(navigator.language||"en").toLowerCase();
+        if(nav.startsWith("ko")) return "ko";
+        if(nav.startsWith("ar")) return "ar";
+        if(nav.startsWith("zh")) return "zh";
+        if(nav.startsWith("ja")) return "ja";
+        return "en";
       }
 
       function apply(lang){
-        const d = T[lang] || T.en;
-        setText("t_brand", d.t_brand);
-        setText("t_tagline", d.t_tagline);
-        setText("t_title", d.t_title);
-        setText("t_desc", d.t_desc);
-        setText("t_what", d.t_what);
-        setHTML("t_list", d.t_list_html);
-        setText("t_contact", d.t_contact);
+        const use = (lang==="auto") ? detectLang() : lang;
+        const d = T[use] || T.en;
 
-        document.getElementById("langEN").classList.toggle("active", lang==="en");
-        document.getElementById("langKR").classList.toggle("active", lang==="ko");
+        $("t_langStatus").textContent = d.status;
+        $("t_brand").textContent = d.brand;
+        $("t_tagline").textContent = d.tagline;
+        $("t_title").textContent = d.title;
+        $("t_desc").textContent = d.desc;
+        $("t_what").textContent = d.what;
+        $("t_list").innerHTML = d.list;
+        $("t_contact").textContent = d.contact;
+
+        // RTL for Arabic
+        document.documentElement.dir = (use==="ar") ? "rtl" : "ltr";
+
+        // active buttons
+        const map = {auto:"langAUTO",en:"langEN",ko:"langKR",ar:"langAR",zh:"langZH",ja:"langJA"};
+        Object.values(map).forEach(id=>$(id).classList.remove("active"));
+        $(map[lang]).classList.add("active");
+
         localStorage.setItem("phk_partsbank_lang", lang);
       }
 
-      const saved = localStorage.getItem("phk_partsbank_lang") || "en";
+      // init
+      const saved = localStorage.getItem("phk_partsbank_lang") || "auto";
       apply(saved);
 
-      document.getElementById("langEN").addEventListener("click", ()=>apply("en"));
-      document.getElementById("langKR").addEventListener("click", ()=>apply("ko"));
+      $("langAUTO").addEventListener("click", ()=>apply("auto"));
+      $("langEN").addEventListener("click", ()=>apply("en"));
+      $("langKR").addEventListener("click", ()=>apply("ko"));
+      $("langAR").addEventListener("click", ()=>apply("ar"));
+      $("langZH").addEventListener("click", ()=>apply("zh"));
+      $("langJA").addEventListener("click", ()=>apply("ja"));
     })();
   </script>
 </body>
