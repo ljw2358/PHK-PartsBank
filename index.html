@@ -1,196 +1,493 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PHK Ventures</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PHK PartsBank</title>
+  <meta name="description" content="PHK PartsBank - Global industrial parts trading platform. Connect verified suppliers and buyers." />
   <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #0b0f19;
-      color: #ffffff;
-      line-height: 1.7;
+    :root{
+      --bg1:#07121c;
+      --bg2:#0b1b2a;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.04);
+      --line: rgba(255,255,255,0.10);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.70);
+      --soft: rgba(255,255,255,0.55);
+      --accent:#41e0b7;
+      --accent2:#2bbca0;
+      --btn:#1b2a3a;
+      --shadow: 0 16px 40px rgba(0,0,0,0.35);
+      --radius: 18px;
     }
 
-    header {
-      padding: 24px;
-      border-bottom: 1px solid #222;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,"Noto Sans KR",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(65,224,183,0.18), transparent 60%),
+        radial-gradient(900px 500px at 80% 20%, rgba(80,140,255,0.12), transparent 55%),
+        linear-gradient(180deg, var(--bg2), var(--bg1));
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 28px 18px 80px;
+    }
+
+    /* top language switch */
+    .topbar{
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      display:flex;
+      gap:8px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      background: rgba(10,18,28,0.55);
+      backdrop-filter: blur(10px);
+      border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .langbtn{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      font-size: 12px;
+      line-height: 1;
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .langbtn:hover{ background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.22); }
+    .langbtn:active{ transform: scale(0.98); }
+    .langbtn.active{
+      background: rgba(65,224,183,0.16);
+      border-color: rgba(65,224,183,0.55);
+      color: #dffcf4;
+    }
+
+    /* hero */
+    .hero{
+      padding: 76px 0 18px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 16px;
+      border: 1px solid rgba(65,224,183,0.28);
+      background: rgba(65,224,183,0.10);
+      color: #c8fff2;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.22);
+    }
+
+    .title{
+      margin: 18px 0 10px;
+      font-size: clamp(36px, 4.7vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.6px;
+      font-weight: 900;
+    }
+    .title .accent{
+      color: var(--accent);
+      text-shadow: 0 0 22px rgba(65,224,183,0.22);
+    }
+
+    .desc{
+      margin: 16px 0 0;
+      max-width: 760px;
+      font-size: 18px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+    .desc strong{
+      color: var(--text);
+      font-weight: 900;
+    }
+
+    /* cards grid */
+    .grid{
+      margin-top: 26px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 820px){
+      .grid{ grid-template-columns: 1fr; }
+      .hero{ padding-top: 70px; }
+    }
+
+    .card{
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow);
+    }
+    .card h3{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+      color: #bffef0;
+      font-weight: 900;
+    }
+    .card ul{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    .card li{ margin: 8px 0; }
+
+    .flow{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .step{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.86);
+      font-size: 13px;
+      user-select:none;
+    }
+
+    .btnrow{
+      margin-top: 18px;
+      display:flex;
+      gap: 12px;
       flex-wrap: wrap;
     }
+    .btn{
+      border: 1px solid rgba(65,224,183,0.30);
+      background: rgba(65,224,183,0.12);
+      color: #dffcf4;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 900;
+      cursor:pointer;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+    }
+    .btn:hover{ background: rgba(65,224,183,0.16); border-color: rgba(65,224,183,0.45); }
+    .btn:active{ transform: scale(0.99); }
 
-    header h1 {
-      margin: 0;
-      font-size: 22px;
-      letter-spacing: 0.5px;
+    .btn.secondary{
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.88);
+    }
+    .btn.secondary:hover{
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.22);
     }
 
-    .lang-buttons button {
-      background: transparent;
-      border: 1px solid #555;
-      color: #fff;
-      padding: 6px 12px;
-      margin-left: 6px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .lang-buttons button:hover {
-      background: #1e90ff;
-      border-color: #1e90ff;
-    }
-
-    main {
-      padding: 28px 20px 80px;
-      max-width: 960px;
-      margin: auto;
-    }
-
-    section {
-      margin-bottom: 40px;
-    }
-
-    h2 {
-      font-size: 20px;
-      border-left: 4px solid #1e90ff;
-      padding-left: 10px;
-    }
-
-    footer {
-      border-top: 1px solid #222;
-      padding: 20px;
-      text-align: center;
+    footer{
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      color: var(--soft);
       font-size: 14px;
-      color: #aaa;
+      display:flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
     }
+    .contact{
+      color: rgba(255,255,255,0.82);
+      font-weight: 800;
+    }
+    .small{ color: var(--soft); }
+
+    /* language blocks */
+    .lang{ display:none; }
+    .lang.show{ display:block; }
+
+    /* RTL for Arabic */
+    body.rtl{
+      direction: rtl;
+      text-align: right;
+    }
+    body.rtl .topbar{ left: 12px; right: auto; }
+    body.rtl .flow{ justify-content: flex-end; }
+    body.rtl .card ul{ padding-right: 18px; padding-left: 0; }
   </style>
 </head>
 
 <body>
-
-<header>
-  <h1>PHK Ventures</h1>
-  <div class="lang-buttons">
-    <button onclick="setLang('kr')">KR</button>
-    <button onclick="setLang('en')">EN</button>
-    <button onclick="setLang('ar')">AR</button>
-  </div>
-</header>
-
-<main>
-
-  <!-- KR -->
-  <div class="lang kr">
-    <section>
-      <h2>PHK Ventures 소개</h2>
-      <p>
-        PHK Ventures는 PHK Global 산하의 전략 투자 조직으로,
-        로보틱스, 인공태양(핵융합), 우주산업, 금융 인프라,
-        그리고 차세대 Physical AI 산업 전반에 걸쳐
-        고수익·고임팩트 프로젝트에 집중 투자합니다.
-      </p>
-    </section>
-
-    <section>
-      <h2>투자의 이유</h2>
-      <p>
-        이유는 단 하나, <strong>이윤</strong>입니다.<br/>
-        PHK Ventures는 기술을 위한 기술이 아니라,
-        실질적인 수익 창출과 시장 지배력을 목표로 합니다.
-      </p>
-    </section>
-
-    <section>
-      <h2>PHK 체계</h2>
-      <p>
-        기존 PWB 구조는 PHK 체계로 통합되었으며,
-        모든 글로벌 확장과 투자 흐름은 PHK Global을 중심으로
-        재편되었습니다.
-      </p>
-    </section>
+  <!-- language switch -->
+  <div class="topbar" aria-label="Language Switch">
+    <button class="langbtn" id="btn-kr" onclick="setLang('kr')">KR</button>
+    <button class="langbtn" id="btn-en" onclick="setLang('en')">EN</button>
+    <button class="langbtn" id="btn-ar" onclick="setLang('ar')">AR</button>
   </div>
 
-  <!-- EN -->
-  <div class="lang en" style="display:none;">
-    <section>
-      <h2>About PHK Ventures</h2>
-      <p>
-        PHK Ventures is the strategic investment arm under PHK Global,
-        focusing on high-return, high-impact projects across
-        robotics, fusion energy, space industry, financial infrastructure,
-        and next-generation Physical AI.
-      </p>
-    </section>
+  <div class="wrap">
+    <section class="hero">
 
-    <section>
-      <h2>Why We Invest</h2>
-      <p>
-        The reason is simple: <strong>Profit</strong>.<br/>
-        PHK Ventures does not invest for technology alone,
-        but for scalable returns and market dominance.
-      </p>
-    </section>
+      <!-- KR -->
+      <div class="lang" id="lang-kr">
+        <div class="pill">중개 · 소싱 · 물류 · 표준</div>
 
-    <section>
-      <h2>PHK Framework</h2>
-      <p>
-        The former PWB structure has been fully integrated into PHK,
-        with all global expansion and capital flows now centered
-        around PHK Global.
-      </p>
+        <div class="title">
+          로봇 시대의<br/>
+          <span class="accent">부품 은행</span>을 만듭니다.
+        </div>
+
+        <p class="desc">
+          <strong>PHK PartsBank</strong>는 전 세계 제조사와 구매자를 직접 연결하는
+          산업 부품 거래 플랫폼입니다.<br/>
+          우리는 비전을 설명하지 않고, <strong>부품을 연결해 현금흐름을 만듭니다.</strong>
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>무엇을 해결합니까</h3>
+            <ul>
+              <li>검증된 공급사와 구매자 직접 연결</li>
+              <li>중개 비용·시간·불확실성 제거</li>
+              <li>표준 기반 견적과 투명한 가격</li>
+              <li>확장 가능한 글로벌 물류 연계</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>거래는 이렇게 진행됩니다</h3>
+            <div class="flow" aria-label="Flow Steps">
+              <div class="step">부품 등록</div>
+              <div class="step">견적 요청</div>
+              <div class="step">매칭·검증</div>
+              <div class="step">거래·물류</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>초기 집중 영역</h3>
+            <ul>
+              <li>로봇·자동화 핵심 부품</li>
+              <li>산업용 모터·액추에이터·센서</li>
+              <li>전력·제어·모듈 부품</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>확장 경로</h3>
+            <ul>
+              <li>에너지·인프라 부품</li>
+              <li>우주·특수 산업 부품</li>
+              <li>표준·데이터 기반 B2B 마켓</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="btnrow">
+          <button class="btn" onclick="openMail()">공급사로 참여</button>
+          <button class="btn secondary" onclick="openMail()">구매 문의</button>
+        </div>
+      </div>
+
+      <!-- EN -->
+      <div class="lang" id="lang-en">
+        <div class="pill">Brokerage · Sourcing · Logistics · Standards</div>
+
+        <div class="title">
+          Building the<br/>
+          <span class="accent">Parts Bank</span> for the Robot Era.
+        </div>
+
+        <p class="desc">
+          <strong>PHK PartsBank</strong> is an industrial parts trading platform
+          that directly connects global manufacturers and buyers.<br/>
+          We don’t sell visions — <strong>we connect parts and create cashflow.</strong>
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>What We Solve</h3>
+            <ul>
+              <li>Direct matching between verified suppliers and buyers</li>
+              <li>Remove broker friction: cost, time, and uncertainty</li>
+              <li>Standard-based quotations and transparent pricing</li>
+              <li>Scalable global logistics integration</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>How Transactions Work</h3>
+            <div class="flow" aria-label="Flow Steps">
+              <div class="step">List Parts</div>
+              <div class="step">Request Quote</div>
+              <div class="step">Match & Verify</div>
+              <div class="step">Deal & Logistics</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Initial Focus</h3>
+            <ul>
+              <li>Core parts for robotics & automation</li>
+              <li>Industrial motors, actuators, sensors</li>
+              <li>Power, control, and modular components</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Expansion Path</h3>
+            <ul>
+              <li>Energy & infrastructure components</li>
+              <li>Space & special-industry components</li>
+              <li>Standards + data-driven B2B marketplace</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="btnrow">
+          <button class="btn" onclick="openMail()">Join as Supplier</button>
+          <button class="btn secondary" onclick="openMail()">Buyer Inquiry</button>
+        </div>
+      </div>
+
+      <!-- AR -->
+      <div class="lang" id="lang-ar">
+        <div class="pill">الوساطة · التوريد · الخدمات اللوجستية · المعايير</div>
+
+        <div class="title">
+          نبني<br/>
+          <span class="accent">بنك القطع</span> لعصر الروبوتات.
+        </div>
+
+        <p class="desc">
+          <strong>PHK PartsBank</strong> منصة لتجارة القطع الصناعية تربط المصنعين والمشترين حول العالم بشكل مباشر.<br/>
+          نحن لا نبيع الوعود — <strong>نربط القطع ونصنع التدفق النقدي.</strong>
+        </p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>ما الذي نحلّه</h3>
+            <ul>
+              <li>ربط مباشر بين مورّدين ومشترين موثوقين</li>
+              <li>إزالة تكلفة ووقت وتعقيد الوسطاء</li>
+              <li>عروض أسعار مبنية على معايير وتسعير شفاف</li>
+              <li>تكامل لوجستي عالمي قابل للتوسع</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>كيف تتم المعاملة</h3>
+            <div class="flow" aria-label="Flow Steps">
+              <div class="step">إدراج القطع</div>
+              <div class="step">طلب عرض سعر</div>
+              <div class="step">مطابقة وتحقق</div>
+              <div class="step">صفقة وشحن</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>التركيز الأولي</h3>
+            <ul>
+              <li>قطع أساسية للروبوتات والأتمتة</li>
+              <li>محركات صناعية ومشغلات وحساسات</li>
+              <li>مكوّنات الطاقة والتحكم والوحدات</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>مسار التوسع</h3>
+            <ul>
+              <li>مكوّنات الطاقة والبنية التحتية</li>
+              <li>مكوّنات الفضاء والصناعات الخاصة</li>
+              <li>سوق B2B قائم على المعايير والبيانات</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="btnrow">
+          <button class="btn" onclick="openMail()">انضم كمورّد</button>
+          <button class="btn secondary" onclick="openMail()">استفسار للمشتري</button>
+        </div>
+      </div>
+
+      <footer>
+        <div class="contact">Contact: <a href="mailto:info@phkbank.com">info@phkbank.com</a></div>
+        <div class="small">© PHK Global / PHK PartsBank</div>
+      </footer>
+
     </section>
   </div>
 
-  <!-- AR -->
-  <div class="lang ar" style="display:none; direction: rtl; text-align: right;">
-    <section>
-      <h2>نبذة عن PHK Ventures</h2>
-      <p>
-        PHK Ventures هي الذراع الاستثمارية الاستراتيجية التابعة لـ PHK Global،
-        وتركز على المشاريع ذات العائد المرتفع في مجالات الروبوتات،
-        طاقة الاندماج، صناعة الفضاء، البنية المالية،
-        والذكاء الاصطناعي الفيزيائي.
-      </p>
-    </section>
+  <script>
+    function openMail(){
+      window.location.href = "mailto:info@phkbank.com?subject=PHK%20PartsBank%20Inquiry";
+    }
 
-    <section>
-      <h2>سبب الاستثمار</h2>
-      <p>
-        السبب واضح: <strong>الربح</strong>.<br/>
-        PHK Ventures تستثمر لتحقيق عوائد حقيقية
-        وهيمنة سوقية مستدامة.
-      </p>
-    </section>
+    function setActiveBtn(lang){
+      const langs = ['kr','en','ar'];
+      langs.forEach(l => {
+        const b = document.getElementById('btn-' + l);
+        if(!b) return;
+        b.classList.toggle('active', l === lang);
+      });
+    }
 
-    <section>
-      <h2>منظومة PHK</h2>
-      <p>
-        تم دمج هيكل PWB السابق بالكامل ضمن منظومة PHK،
-        وأصبحت جميع التوسعات العالمية
-        تحت إدارة PHK Global.
-      </p>
-    </section>
-  </div>
+    function showLang(lang){
+      const ids = ['kr','en','ar'];
+      ids.forEach(id => {
+        const el = document.getElementById('lang-' + id);
+        if(!el) return;
+        el.classList.toggle('show', id === lang);
+      });
 
-</main>
+      // RTL handling
+      document.body.classList.toggle('rtl', lang === 'ar');
 
-<footer>
-  Contact: info@phkbank.com<br/>
-  © PHK Global / PHK Ventures
-</footer>
+      // html lang attribute
+      document.documentElement.lang = (lang === 'kr') ? 'ko' : (lang === 'ar' ? 'ar' : 'en');
 
-<script>
-  function setLang(lang) {
-    document.querySelectorAll('.lang').forEach(el => {
-      el.style.display = 'none';
-    });
-    document.querySelector('.' + lang).style.display = 'block';
-  }
-</script>
+      setActiveBtn(lang);
+    }
 
+    function detectDefaultLang(){
+      // 1) saved
+      const saved = localStorage.getItem('phk_lang');
+      if(saved === 'kr' || saved === 'en' || saved === 'ar') return saved;
+
+      // 2) browser
+      const nav = (navigator.language || '').toLowerCase();
+      if(nav.startsWith('ko')) return 'kr';
+      if(nav.startsWith('ar')) return 'ar';
+      return 'en';
+    }
+
+    function setLang(lang){
+      localStorage.setItem('phk_lang', lang);
+      showLang(lang);
+    }
+
+    // init
+    (function init(){
+      const lang = detectDefaultLang();
+      showLang(lang);
+    })();
+  </script>
 </body>
 </html>
